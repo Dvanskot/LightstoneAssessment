@@ -4,7 +4,62 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        int numberOfCases = 0;
+
+        //prompting user to input the number of strings to test
+
+        Console.WriteLine("Please enter the number (between 1 and 25) of string you would like to test");
+        numberOfCases = Convert.ToInt32(Console.ReadLine().ToString());
+
+
+        if (ValidateNumberOfCases(numberOfCases))
+        {
+            DisplayOutput(numberOfCases);
+        }
+        else
+        {
+            Console.WriteLine("You have entered an invalid number, please try again.");
+        }
+
+
+    }
+
+
+    public static void DisplayOutput(int numberOfCases)
+    {
+        //Creating a List of inputs to store the captured string
+
+        List<Inputs> _input = new List<Inputs>();
+
+        for (int x = 0; x < numberOfCases; x++)
+        {
+            Console.WriteLine($"Enter string number {x + 1}");
+
+            _input.Add(new Inputs
+            {
+                InputString = Console.ReadLine().ToString(),
+            });
+        }
+
+
+        //Creating a stringManager object to transform strings
+
+        StringManager _stringManager = new StringManager();
+
+        //Displaying results
+
+        int caseNumber = 1;
+        foreach (Inputs input in _input)
+        {
+            Console.WriteLine($"Case {caseNumber}: {_stringManager.TransformWords(input.InputString.Trim())}");
+
+            caseNumber++;
+        }
+    }
+
+    public static bool ValidateNumberOfCases(int numberOfCases)
+    {
+        return numberOfCases > 0 && numberOfCases <= 25;
     }
 }
 
