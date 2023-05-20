@@ -4,17 +4,18 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        int numberOfCases = 0;
+        Inputs inputs = new Inputs();
 
         //prompting user to input the number of strings to test
 
         Console.WriteLine("Please enter the number (between 1 and 25) of string you would like to test");
-        numberOfCases = Convert.ToInt32(Console.ReadLine().ToString());
+        inputs.NumberOfCases = Convert.ToInt32(Console.ReadLine().ToString());
 
+        bool isValid = inputs.ValidateNumberOfCases;
 
-        if (ValidateNumberOfCases(numberOfCases))
+        if (isValid)
         {
-            DisplayOutput(numberOfCases);
+            DisplayOutput(inputs.NumberOfCases);
         }
         else
         {
@@ -57,20 +58,30 @@ internal class Program
         }
     }
 
-    public static bool ValidateNumberOfCases(int numberOfCases)
-    {
-        return numberOfCases > 0 && numberOfCases <= 25;
-    }
+    
 }
 
 //class only responsible for user inputs
-internal class Inputs
+public class Inputs
 {
+    public int NumberOfCases { get; set; }
     public string InputString { get; set; } = string.Empty;
+
+    public bool ValidateNumberOfCases
+    {
+        get { return NumberOfCases > 0 && NumberOfCases <= 25; }
+    }
+    public bool ValidateInputString
+    {
+        get { 
+
+            return InputString.Trim() == InputString; 
+        }
+    }
 }
 
 //Class only responsible for transforming strings
-internal class StringManager
+public class StringManager
 {
     //Function to reverse string to the desired output
     public string TransformWords(string input)
